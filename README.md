@@ -1,35 +1,3 @@
-# Template for Bazel rules
-
-Copy this template to create a Bazel ruleset.
-
-Features:
-
-- follows the official style guide at https://docs.bazel.build/versions/main/skylark/deploying.html
-- allows for both WORKSPACE.bazel and bzlmod (MODULE.bazel) usage
-- includes Bazel formatting as a pre-commit hook (using [buildifier])
-- includes stardoc API documentation generator
-- includes typical toolchain setup
-- CI configured with GitHub Actions
-- release using GitHub Actions just by pushing a tag
-- the release artifact doesn't need to be built by Bazel, but can still exclude files and stamp the version
-
-See https://docs.bazel.build/versions/main/skylark/deploying.html#readme
-
-[buildifier]: https://github.com/bazelbuild/buildtools/tree/master/buildifier#readme
-
-Ready to get started? Copy this repo, then
-
-1. search for "com_babylon_rules_uniffi" and replace with the name you'll use for your workspace
-1. search for "myorg" and replace with GitHub org
-1. search for "uniffi", "uniffi", "uniffi" and replace with the language/tool your rules are for
-1. rename directory "uniffi" similarly
-1. run `pre-commit install` to get lints (see CONTRIBUTING.md)
-1. if you don't need to fetch platform-dependent tools, then remove anything toolchain-related.
-1. (optional) install the [Renovate app](https://github.com/apps/renovate) to get auto-PRs to keep the dependencies up-to-date.
-1. delete this section of the README (everything up to the SNIP).
-
----- SNIP ----
-
 # Bazel rules for uniffi
 
 ## Installation
