@@ -1,7 +1,7 @@
 {
-  "homepage": "https://github.com/myorg/rules_uniffi",
+  "homepage": "https://github.com/babylon/rules_uniffi",
   "maintainers": [],
-  "repository": ["github:myorg/rules_uniffi"],
+  "repository": ["github:babylon/rules_uniffi"],
   "versions": [],
   "yanked_versions": {}
 }

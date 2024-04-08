@@ -35,7 +35,7 @@ http_archive(
     name = "com_babylon_rules_uniffi",
     sha256 = "${SHA}",
     strip_prefix = "${PREFIX}",
-    url = "https://github.com/myorg/rules_uniffi/releases/download/${TAG}/${ARCHIVE}",
+    url = "https://github.com/babylon/rules_uniffi/releases/download/${TAG}/${ARCHIVE}",
 )
 EOF
 
