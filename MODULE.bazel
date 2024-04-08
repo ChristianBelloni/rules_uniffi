@@ -1,12 +1,34 @@
 "Bazel dependencies"
 
 module(
-    name = "com_myorg_rules_mylang",
-    version = "0.0.0",
+    name = "com_babylon_rules_uniffi",
+    version = "0.0.1",
     compatibility_level = 1,
 )
 
 bazel_dep(name = "bazel_skylib", version = "1.4.1")
+bazel_dep(name = "rules_rust", version = "0.41.1")
+
+rust = use_extension("@rules_rust//rust:extensions.bzl", "rust")
+rust.toolchain(
+    edition = "2021",
+    versions = ["1.77.1"],
+)
+
+use_repo(rust, "rust_toolchains")
+register_toolchains("@rust_toolchains//:all")
+
+crate = use_extension(
+    "@rules_rust//crate_universe:extension.bzl",
+    "crate",
+)
+crate.from_cargo(
+    name = "crates",
+    cargo_lockfile = "//uniffi/private/generate:Cargo.lock",
+    manifests = ["//uniffi/private/generate:Cargo.toml"],
+)
+use_repo(crate, "crates")
+
 bazel_dep(name = "platforms", version = "0.0.5")
 
 bazel_dep(name = "gazelle", version = "0.35.0", dev_dependency = True, repo_name = "bazel_gazelle")
@@ -14,8 +36,5 @@ bazel_dep(name = "bazel_skylib_gazelle_plugin", version = "1.4.1", dev_dependenc
 bazel_dep(name = "aspect_bazel_lib", version = "1.32.1", dev_dependency = True)
 bazel_dep(name = "buildifier_prebuilt", version = "6.1.2", dev_dependency = True)
 
-mylang = use_extension("//mylang:extensions.bzl", "mylang")
-mylang.toolchain(mylang_version = "1.14.2")
-use_repo(mylang, "mylang_toolchains")
+bazel_dep(name = "rules_cc", version = "0.0.9")
 
-register_toolchains("@mylang_toolchains//:all")

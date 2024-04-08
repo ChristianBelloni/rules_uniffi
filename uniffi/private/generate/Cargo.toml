@@ -1,0 +1,10 @@
+[package]
+name = "generate"
+version = "0.0.1"
+edition = "2021"
+keywords = ["bazel"]
+license = "Apache-2.0"
+
+[dependencies]
+anyhow = "*"
+uniffi_bindgen = "*"

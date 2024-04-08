@@ -1,1 +1,6 @@
 # Marker that this is the root of a Bazel workspace.
+load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies", "rules_cc_toolchains")
+
+rules_cc_dependencies()
+
+rules_cc_toolchains()
