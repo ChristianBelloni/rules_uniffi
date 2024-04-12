@@ -45,6 +45,11 @@ def rules_uniffi_dependencies():
         sha256 = "2037875b9a4456dce4a79d112a8ae885bbc4aad968e6587dca6e64f3a0900cdf",
         strip_prefix = "rules_cc-0.0.9",
     )
+    http_archive(
+        name = "build_bazel_rules_swift",
+        sha256 = "bb01097c7c7a1407f8ad49a1a0b1960655cf823c26ad2782d0b7d15b323838e2",
+        url = "https://github.com/bazelbuild/rules_swift/releases/download/1.18.0/rules_swift.1.18.0.tar.gz",
+    )
 
     maven_aar(
         name = "net_java_dev_jna_jna",
