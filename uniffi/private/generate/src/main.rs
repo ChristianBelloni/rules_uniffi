@@ -9,8 +9,7 @@ use uniffi_bindgen::BindingGeneratorDefault;
 mod bazel_mode;
 
 pub fn main() -> anyhow::Result<()> {
-    println!("generate files");
-    Ok(())
+    run_main()
 }
 
 pub fn run_main() -> anyhow::Result<()> {
