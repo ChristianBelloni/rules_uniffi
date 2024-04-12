@@ -22,6 +22,9 @@ def http_archive(name, **kwargs):
 # This is all fixed by bzlmod, so we just tolerate it for now.
 def rules_uniffi_dependencies():
     # The minimal version of bazel_skylib we require
+    """
+    rules_uniffi dependencies
+    """
     http_archive(
         name = "bazel_skylib",
         sha256 = "cd55a062e763b9349921f0f5db8c3933288dc8ba4f76dd9416aac68acee3cb94",
@@ -41,3 +44,9 @@ def rules_uniffi_dependencies():
         sha256 = "2037875b9a4456dce4a79d112a8ae885bbc4aad968e6587dca6e64f3a0900cdf",
         strip_prefix = "rules_cc-0.0.9",
     )
+
+    load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies", "rules_cc_toolchains")
+
+    rules_cc_dependencies()
+
+    rules_cc_toolchains()
