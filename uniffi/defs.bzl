@@ -1,5 +1,5 @@
 "Public API re-exports"
 
-def example():
-    """This is an example"""
-    pass
+load("//uniffi/private/generate:defs.bzl", _expose_rust_lib = "expose_rust_lib")
+
+expose_rust_lib = _expose_rust_lib
