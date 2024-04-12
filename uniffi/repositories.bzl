@@ -55,3 +55,9 @@ def rules_uniffi_dependencies():
         name = "net_java_dev_jna_jna",
         artifact = "net.java.dev.jna:jna:5.14.0",
     )
+
+def rules_uniffi_setup():
+    """
+    setup rules_uniffi
+    """
+    return

@@ -35,5 +35,3 @@ kotlin_repositories(
         sha256 = _KOTLIN_COMPILER_SHA,
     ),
 )
-
-register_toolchains("//android:kotlin_toolchain")

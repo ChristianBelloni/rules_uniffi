@@ -1,5 +1,5 @@
 load("@rules_rust//rust:defs.bzl", "rust_binary")
-load("@crates//:defs.bzl", "all_crate_deps")
+load("//uniffi/private/generate/3rdparty/crates:defs.bzl", "all_crate_deps")
 
 exports_files([
     "Cargo.toml",
