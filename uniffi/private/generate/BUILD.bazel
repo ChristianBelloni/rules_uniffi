@@ -9,5 +9,6 @@ exports_files([
 rust_binary(
     name = "generate_bin",
     srcs = glob(["src/**/*.rs"]),
+    visibility = ["//visibility:public"],
     deps = all_crate_deps(),
 )

@@ -30,4 +30,5 @@ bzl_library(
 alias(
     name = "generate_bin",
     actual = "//uniffi/private/generate:generate_bin",
+    visibility = ["//visibility:public"],
 )
