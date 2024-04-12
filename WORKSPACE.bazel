@@ -1,3 +1,4 @@
+load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies", "rules_cc_toolchains")
 
 rules_cc_dependencies()
@@ -7,3 +8,45 @@ rules_cc_toolchains()
 load("//uniffi:repositories.bzl", "rules_uniffi_dependencies")
 
 rules_uniffi_dependencies()
+
+load("@rules_kotlin//kotlin:repositories.bzl", "kotlin_repositories", "kotlinc_version", "versions")
+
+http_archive(
+    name = "rules_jvm_external",
+    sha256 = versions.RULES_JVM_EXTERNAL_SHA,
+    strip_prefix = "rules_jvm_external-%s" % versions.RULES_JVM_EXTERNAL_TAG,
+    url = "https://github.com/bazelbuild/rules_jvm_external/releases/download/%s/rules_jvm_external-%s.tar.gz" % (
+        versions.RULES_JVM_EXTERNAL_TAG,
+        versions.RULES_JVM_EXTERNAL_TAG,
+    ),
+)
+
+# _COMPOSE_VERSION = "1.2.1"
+
+# _COMPOSE_COMPILER_VERSION = "1.5.9"
+
+_KOTLIN_COMPILER_VERSION = "1.9.22"
+
+_KOTLIN_COMPILER_SHA = "88b39213506532c816ff56348c07bbeefe0c8d18943bffbad11063cf97cac3e6"
+
+kotlin_repositories(
+    compiler_release = kotlinc_version(
+        release = _KOTLIN_COMPILER_VERSION,
+        sha256 = _KOTLIN_COMPILER_SHA,
+    ),
+)
+
+register_toolchains("//android:kotlin_toolchain")
+
+load("@rules_jvm_external//:defs.bzl", "maven_install")
+
+maven_install(
+    name = "maven",
+    artifacts = [
+        "net.java.dev.jna:jna:5.14.0",
+    ],
+    repositories = [
+        "https://maven.google.com",
+        "https://repo1.maven.org/maven2",
+    ],
+)
