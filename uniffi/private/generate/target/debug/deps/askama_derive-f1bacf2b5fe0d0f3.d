@@ -1,9 +1,0 @@
-/Users/christianbelloni/side/rules_uniffi/uniffi/private/generate/target/debug/deps/libaskama_derive-f1bacf2b5fe0d0f3.dylib: /Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/lib.rs /Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/config.rs /Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/generator.rs /Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/heritage.rs /Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/input.rs
-
-/Users/christianbelloni/side/rules_uniffi/uniffi/private/generate/target/debug/deps/askama_derive-f1bacf2b5fe0d0f3.d: /Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/lib.rs /Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/config.rs /Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/generator.rs /Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/heritage.rs /Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/input.rs
-
-/Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/lib.rs:
-/Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/config.rs:
-/Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/generator.rs:
-/Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/heritage.rs:
-/Users/christianbelloni/.cargo/registry/src/index.crates.io-6f17d22bba15001f/askama_derive-0.12.5/src/input.rs:
