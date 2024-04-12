@@ -6,8 +6,7 @@ See https://docs.bazel.build/versions/main/skylark/deploying.html#dependencies
 
 load("@bazel_tools//tools/build_defs/repo:http.bzl", _http_archive = "http_archive")
 load("@bazel_tools//tools/build_defs/repo:utils.bzl", "maybe")
-
-#load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies", "rules_cc_toolchains")
+load("@rules_cc//cc:repositories.bzl", "rules_cc_dependencies", "rules_cc_toolchains")
 load("@bazel_tools//tools/build_defs/repo:maven_rules.bzl", "maven_aar")
 
 # load("//uniffi/private:toolchains_repo.bzl", "PLATFORMS", "toolchains_repo")
@@ -47,6 +46,9 @@ def rules_uniffi_dependencies():
         sha256 = "2037875b9a4456dce4a79d112a8ae885bbc4aad968e6587dca6e64f3a0900cdf",
         strip_prefix = "rules_cc-0.0.9",
     )
+
+    rules_cc_dependencies()
+    rules_cc_toolchains()
 
     maven_aar(
         name = "net_java_dev_jna_jna",
