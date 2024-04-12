@@ -6,6 +6,8 @@ load("@build_bazel_rules_swift//swift:swift.bzl", "swift_c_module", "swift_libra
 load("@rules_android//android:rules.bzl", "android_library")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 
+# //uniffi:generate_bin
+
 def expose_rust_lib(name):
     """
     define all rust targets for ffi
@@ -17,8 +19,8 @@ def expose_rust_lib(name):
         name = "genrule_" + name + "_swift",
         srcs = [":" + name],
         outs = [name + ".swift", name + "FFI.h", name + "FFI.modulemap"],
-        cmd = "$(location //tools/uniffy-gen) generate --bazel --library --out-dir $(@D) --language swift --metadata '{ \"packages\":[{\"name\":\"" + name + "\", \"dependencies\":[]}] }' $(location :" + name + ")",
-        tools = ["//tools/uniffy-gen"],
+        cmd = "$(location //uniffi:generate_bin) generate --bazel --library --out-dir $(@D) --language swift --metadata '{ \"packages\":[{\"name\":\"" + name + "\", \"dependencies\":[]}] }' $(location :" + name + ")",
+        tools = ["//uniffi:generate_bin"],
     )
     native.cc_library(
         name = "shim_" + name,
@@ -43,8 +45,8 @@ def expose_rust_lib(name):
         name = "genrule_" + name + "_kotlin",
         srcs = [":" + name + "_shared"],
         outs = [name + ".kt"],
-        cmd = "$(location //tools/uniffy-gen) generate --bazel --library --out-dir $(@D) --language kotlin --metadata '{ \"packages\":[{\"name\":\"" + name + "\", \"dependencies\":[]}] }' $(location " + ":" + name + "_shared) && cp $(@D)/uniffi/service/* $(@D)",
-        tools = ["//tools/uniffy-gen"],
+        cmd = "$(location //uniffi:generate_bin) generate --bazel --library --out-dir $(@D) --language kotlin --metadata '{ \"packages\":[{\"name\":\"" + name + "\", \"dependencies\":[]}] }' $(location " + ":" + name + "_shared) && cp $(@D)/uniffi/service/* $(@D)",
+        tools = ["//uniffi:generate_bin"],
     )
 
     kt_android_library(

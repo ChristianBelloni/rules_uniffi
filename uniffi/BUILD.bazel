@@ -26,3 +26,8 @@ bzl_library(
     visibility = ["//visibility:public"],
     deps = [":repositories"],
 )
+
+alias(
+    name = "generate_bin",
+    actual = "//uniffi/private/generate:generate_bin",
+)
