@@ -50,3 +50,10 @@ def rules_uniffi_dependencies():
     rules_cc_dependencies()
 
     rules_cc_toolchains()
+
+    load("@bazel_tools//tools/build_defs/repo:maven_rules.bzl", "maven_aar")
+
+    maven_aar(
+        name = "net_java_dev_jna_jna",
+        artifact = "net.java.dev.jna:jna:5.14.0",
+    )
