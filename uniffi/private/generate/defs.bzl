@@ -5,8 +5,49 @@ Utilities to generate uniffi bindings
 load("@build_bazel_rules_swift//swift:swift.bzl", "swift_c_module", "swift_library")
 load("@rules_android//android:rules.bzl", "android_library")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library", "rust_static_library")
 
 # @rules_uniffi//uniffi:generate_bin
+
+def define_lib(name = None, deps = [], features = [], crate_name = None):
+    """
+    define rust libs
+
+    Args:
+        name:
+        deps:
+        features:
+        crate_name:
+    """
+    if crate_name == None:
+        crate_name = name
+
+    rust_library(
+        name = name,
+        crate_name = crate_name,
+        srcs = native.glob(["src/**/*.rs"]),
+        compile_data = ["Cargo.toml"],
+        deps = deps,
+        crate_features = features,
+    )
+
+    rust_static_library(
+        name = name + "_static",
+        crate_name = crate_name,
+        srcs = native.glob(["src/**/*.rs"]),
+        compile_data = ["Cargo.toml"],
+        deps = deps,
+        crate_features = features,
+    )
+
+    rust_shared_library(
+        name = name + "_shared",
+        crate_name = crate_name,
+        srcs = native.glob(["src/**/*.rs"]),
+        compile_data = ["Cargo.toml"],
+        deps = deps,
+        crate_features = features,
+    )
 
 def expose_rust_lib(name):
     """
@@ -15,6 +56,8 @@ def expose_rust_lib(name):
     Args:
         name: rust target name
     """
+    define_lib(name)
+
     native.genrule(
         name = "genrule_" + name + "_swift",
         srcs = [":" + name],
