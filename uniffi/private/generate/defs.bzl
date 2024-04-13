@@ -19,20 +19,20 @@ def define_lib(name = None, **kwargs):
     """
 
     rust_library(
-        kwargs,
         name = name,
+        **kwargs
     )
 
     rust_static_library(
-        kwargs,
         name = name + "_static",
         crate_name = name,
+        **kwargs
     )
 
     rust_shared_library(
-        kwargs,
         name = name + "_shared",
         crate_name = name,
+        **kwargs
     )
 
 def expose_rust_lib(name, **kwargs):
@@ -43,7 +43,7 @@ def expose_rust_lib(name, **kwargs):
         name: rust target name
         **kwargs:
     """
-    define_lib(name, kwargs)
+    define_lib(name, **kwargs)
 
     native.genrule(
         name = "genrule_" + name + "_swift",
