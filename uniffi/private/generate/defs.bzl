@@ -9,54 +9,41 @@ load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library", "rust_
 
 # @rules_uniffi//uniffi:generate_bin
 
-def define_lib(name = None, deps = [], features = [], crate_name = None):
+def define_lib(name = None, **kwargs):
     """
     define rust libs
 
     Args:
         name:
-        deps:
-        features:
-        crate_name:
+        **kwargs:
     """
-    if crate_name == None:
-        crate_name = name
 
     rust_library(
+        kwargs,
         name = name,
-        crate_name = crate_name,
-        srcs = native.glob(["src/**/*.rs"]),
-        compile_data = ["Cargo.toml"],
-        deps = deps,
-        crate_features = features,
     )
 
     rust_static_library(
+        kwargs,
         name = name + "_static",
-        crate_name = crate_name,
-        srcs = native.glob(["src/**/*.rs"]),
-        compile_data = ["Cargo.toml"],
-        deps = deps,
-        crate_features = features,
+        crate_name = name,
     )
 
     rust_shared_library(
+        kwargs,
         name = name + "_shared",
-        crate_name = crate_name,
-        srcs = native.glob(["src/**/*.rs"]),
-        compile_data = ["Cargo.toml"],
-        deps = deps,
-        crate_features = features,
+        crate_name = name,
     )
 
-def expose_rust_lib(name):
+def expose_rust_lib(name, **kwargs):
     """
     define all rust targets for ffi
 
     Args:
         name: rust target name
+        **kwargs:
     """
-    define_lib(name)
+    define_lib(name, kwargs)
 
     native.genrule(
         name = "genrule_" + name + "_swift",
