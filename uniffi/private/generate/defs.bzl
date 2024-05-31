@@ -5,7 +5,7 @@ Utilities to generate uniffi bindings
 load("@build_bazel_rules_swift//swift:swift.bzl", "swift_c_module", "swift_library")
 load("@rules_android//android:rules.bzl", "android_library")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
-load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library", "rust_static_library")
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library")
 
 # @rules_uniffi//uniffi:generate_bin
 
@@ -28,7 +28,7 @@ def define_lib(name = None, crate_name = None, **kwargs):
         **kwargs
     )
 
-    rust_static_library(
+    rust_static_librar(
         name = name + "_static",
         crate_name = crate_name,
         **kwargs
@@ -97,14 +97,9 @@ def expose_rust_lib(name, crate_name = None, **kwargs):
         ],
     )
 
-    native.cc_library(
+    native.cc_import(
         name = "kt_shim_" + name,
-        deps = [":" + name + "_shared"],
-        linkopts = [
-            "-lm",  # Required to avoid dlopen runtime failures unrelated to rust
-            "-fuse-ld=lld",  # Work around https://github.com/bazelbuild/rules_rust/issues/1276, the default in newer NDK versions
-        ],
-        alwayslink = True,
+        shared_library = [":" + name + "_shared"],
     )
 
     android_library(
