@@ -5,7 +5,7 @@ Utilities to generate uniffi bindings
 load("@build_bazel_rules_swift//swift:swift.bzl", "swift_c_module", "swift_library")
 load("@rules_android//android:rules.bzl", "android_library")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
-load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library")
+load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library", "rust_static_library")
 
 # @rules_uniffi//uniffi:generate_bin
 
@@ -28,7 +28,7 @@ def define_lib(name = None, crate_name = None, **kwargs):
         **kwargs
     )
 
-    rust_static_librar(
+    rust_static_library(
         name = name + "_static",
         crate_name = crate_name,
         **kwargs
