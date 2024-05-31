@@ -99,7 +99,7 @@ def expose_rust_lib(name, crate_name = None, **kwargs):
 
     native.cc_import(
         name = "kt_shim_" + name,
-        shared_library = [":" + name + "_shared"],
+        shared_library = ":" + name + "_shared",
     )
 
     android_library(
