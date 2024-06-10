@@ -60,14 +60,9 @@ def define_lib(name = None, crate_name = None, **kwargs):
     )
 
     rust_shared_library(
-        name = "_" + name + "_shared",
+        name = name + "_shared",
         crate_name = crate_name,
         **kwargs
-    )
-
-    android_rule(
-        name = name + "_shared",
-        srcs = ["_" + name + "_shared"],
     )
 
 def expose_rust_lib(name, crate_name = None, **kwargs):
@@ -131,7 +126,7 @@ def expose_rust_lib(name, crate_name = None, **kwargs):
 
     native.cc_import(
         name = "kt_shim_" + name,
-        shared_library = ":" + name + "_shared",
+        static_library = ":" + name + "_static",
     )
 
     android_library(
