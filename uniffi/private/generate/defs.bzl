@@ -20,7 +20,7 @@ android_transition = transition(
 
 def _android_rule_impl(ctx):
     return [DefaultInfo(
-        files = depset(direct = ctx.files.src),
+        files = depset(direct = ctx.files.srcs),
     )]
 
 android_rule = rule(
