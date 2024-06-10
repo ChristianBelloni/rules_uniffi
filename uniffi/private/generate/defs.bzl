@@ -9,6 +9,31 @@ load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library", "rust_
 
 # @rules_uniffi//uniffi:generate_bin
 
+def _android_transition(_settings, _attr):
+    return {"//command_line_option:platforms": "//:android_aarch64,//:android_armeabi,//:android_x86,//:android_x86_64"}
+
+android_transition = transition(
+    implementation = _android_transition,
+    inputs = [],
+    outputs = ["//command_line_option:platforms"],
+)
+
+def _android_rule_impl(ctx):
+    return [DefaultInfo(
+        files = depset(direct = ctx.files.src),
+    )]
+
+android_rule = rule(
+    _android_rule_impl,
+    attrs = {
+        "_allowlist_function_transition": attr.label(
+            default = "@bazel_tools//tools/allowlists/function_transition_allowlist",
+        ),
+        "srcs": attr.label_list(allow_files = True),
+    },
+    cfg = android_transition,
+)
+
 def define_lib(name = None, crate_name = None, **kwargs):
     """
     define rust libs
@@ -35,9 +60,14 @@ def define_lib(name = None, crate_name = None, **kwargs):
     )
 
     rust_shared_library(
-        name = name + "_shared",
+        name = "_" + name + "_shared",
         crate_name = crate_name,
         **kwargs
+    )
+
+    android_rule(
+        name = name + "_shared",
+        srcs = ["_" + name + "_shared"],
     )
 
 def expose_rust_lib(name, crate_name = None, **kwargs):
@@ -58,11 +88,13 @@ def expose_rust_lib(name, crate_name = None, **kwargs):
         cmd = "$(location @rules_uniffi//uniffi:generate_bin) generate --bazel --library --out-dir $(@D) --language swift --metadata '{ \"packages\":[{\"name\":\"" + name + "\", \"dependencies\":[]}] }' $(location :" + name + ")",
         tools = ["@rules_uniffi//uniffi:generate_bin"],
     )
+
     native.cc_library(
         name = "shim_" + name,
         hdrs = [name + "FFI.h"],
         deps = [":" + name + "_static"],
     )
+
     swift_c_module(
         name = "c_mod_" + name,
         deps = [":shim_" + name],
