@@ -6,6 +6,7 @@ load("@build_bazel_rules_swift//swift:swift.bzl", "swift_library")
 load("@rules_android//android:rules.bzl", "android_library")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library", "rust_static_library")
+load("//swift:swift_interop_hint.bzl", "swift_interop_hint")
 
 # @rules_uniffi//uniffi:generate_bin
 
@@ -85,9 +86,23 @@ def expose_rust_lib(name, crate_name = None, **kwargs):
     )
 
     native.cc_library(
-        name = "shim_" + name,
+        name = "c_" + name,
         hdrs = [name + "FFI.h"],
         deps = [":" + name + "_static"],
+        linkstatic = True,
+    )
+
+    native.cc_library(
+        name = "shim_" + name,
+        hdrs = [name + "FFI.h"],
+        linkstatic = True,
+        aspect_hints = [":c_%s_hint" % name],
+        deps = ["c_" + name],
+    )
+
+    swift_interop_hint(
+        name = "c_%s_hint" % name,
+        module_name = "C%s" % name,
     )
 
     swift_library(
@@ -95,6 +110,8 @@ def expose_rust_lib(name, crate_name = None, **kwargs):
         srcs = [name + ".swift"],
         deps = [":shim_" + name],
         module_name = name + "Lib",
+        generated_header_name = "generated_header/%s-Swift.h" % name,
+        generates_header = True,
     )
 
     native.genrule(
