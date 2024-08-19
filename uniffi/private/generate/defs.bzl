@@ -2,7 +2,7 @@
 Utilities to generate uniffi bindings
 """
 
-load("@build_bazel_rules_swift//swift:swift.bzl", "swift_c_module", "swift_library")
+load("@build_bazel_rules_swift//swift:swift.bzl", "swift_library")
 load("@rules_android//android:rules.bzl", "android_library")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library", "rust_static_library")
@@ -90,17 +90,10 @@ def expose_rust_lib(name, crate_name = None, **kwargs):
         deps = [":" + name + "_static"],
     )
 
-    swift_c_module(
-        name = "c_mod_" + name,
-        deps = [":shim_" + name],
-        module_name = name,
-        module_map = name + "FFI.modulemap",
-    )
-
     swift_library(
         name = name + "_swift",
         srcs = [name + ".swift"],
-        deps = [":c_mod_" + name],
+        deps = [":shim_" + name],
         module_name = name + "Lib",
     )
 
