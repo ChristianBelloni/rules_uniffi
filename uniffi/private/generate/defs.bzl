@@ -3,10 +3,10 @@ Utilities to generate uniffi bindings
 """
 
 load("@build_bazel_rules_swift//swift:swift.bzl", "swift_library")
+load("@build_bazel_rules_swift//swift:swift_interop_hint.bzl", "swift_interop_hint")
 load("@rules_android//android:rules.bzl", "android_library")
 load("@rules_kotlin//kotlin:android.bzl", "kt_android_library")
 load("@rules_rust//rust:defs.bzl", "rust_library", "rust_shared_library", "rust_static_library")
-load("//swift:swift_interop_hint.bzl", "swift_interop_hint")
 
 # @rules_uniffi//uniffi:generate_bin
 
