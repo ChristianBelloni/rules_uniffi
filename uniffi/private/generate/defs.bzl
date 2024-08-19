@@ -86,23 +86,17 @@ def expose_rust_lib(name, crate_name = None, **kwargs):
     )
 
     native.cc_library(
-        name = "c_" + name,
-        hdrs = [name + "FFI.h"],
-        deps = [":" + name + "_static"],
-        linkstatic = True,
-    )
-
-    native.cc_library(
         name = "shim_" + name,
         hdrs = [name + "FFI.h"],
         linkstatic = True,
         aspect_hints = [":c_%s_hint" % name],
-        deps = ["c_" + name],
+        deps = [":" + name + "_static"],
     )
 
     swift_interop_hint(
         name = "c_%s_hint" % name,
         module_name = "C%s" % name,
+        module_map = name + "FFI.modulemap",
     )
 
     swift_library(
