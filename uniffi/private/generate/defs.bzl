@@ -112,7 +112,7 @@ def expose_rust_lib(name, crate_name = None, **kwargs):
         name = "genrule_" + name + "_kotlin",
         srcs = [":" + name + "_shared"],
         outs = [name + ".kt"],
-        cmd = "$(location @rules_uniffi//uniffi:generate_bin) generate --bazel --library --out-dir $(@D) --language kotlin --metadata '{ \"packages\":[{\"name\":\"" + name + "\", \"dependencies\":[]}] }' $(location " + ":" + name + "_shared) && cp $(@D)/uniffi/service/* $(@D)",
+        cmd = "$(location @rules_uniffi//uniffi:generate_bin) generate --bazel --library --out-dir $(@D) --language kotlin --metadata '{ \"packages\":[{\"name\":\"" + name + "\", \"dependencies\":[]}] }' $(location " + ":" + name + "_shared) && cp $(@D)/uniffi/" + name + "/* $(@D)",
         tools = ["@rules_uniffi//uniffi:generate_bin"],
     )
 
